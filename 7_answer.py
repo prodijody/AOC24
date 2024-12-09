@@ -15,14 +15,16 @@ def read_input_file(filename: str) -> list[tuple[int, list[int]]]:
 
 
 if __name__ == "__main__":
-    equations = read_input_file("7_test_input.txt")
+    equations = read_input_file("7_input.txt")
     # print(equations)
     total_sum = 0
     for equation in equations:
+        # print("----------------------------")
+        # print(f"--------{equation[0]}-----------")
         nums = equation[1]
         operators = list(itertools.product(["+", "*", "||"], repeat=len(nums) - 1))
         for op_set in operators:
-            print(nums, op_set)
+            # print(nums, op_set)
             num_sum = 0
             if op_set[0] == "+":
                 num_sum += nums[0] + nums[1]
@@ -30,21 +32,20 @@ if __name__ == "__main__":
                 num_sum += nums[0] * nums[1]
             if op_set[0] == "||":
                 num_sum += int(str(nums[0]) + str(nums[1]))
-            print(f"starting num_sum: {num_sum}")
+            # print(f"starting num_sum: {num_sum}")
             for i in range(1, len(op_set)):
                 if op_set[i] == "+":
-                    print(f"adding {num_sum} + {nums[i + 1]}")
+                    # print(f"adding {num_sum} + {nums[i + 1]}")
                     num_sum = num_sum + nums[i + 1]
                 if op_set[i] == "*":
-                    print(f"multiplying {num_sum} * {nums[i + 1]}")
+                    # print(f"multiplying {num_sum} * {nums[i + 1]}")
                     num_sum = num_sum * nums[i + 1]
                 if op_set[i] == "||":
-                    num_sum += int(str(num_sum) + str(nums[i + 1]))
-                    print(f"adding  {int(str(num_sum) + str(nums[i+1]))}")
-            print(num_sum, equation[0])
+                    # print(f"adding  {int(str(num_sum) + str(nums[i+1]))}")
+                    num_sum = int(str(num_sum) + str(nums[i + 1]))
+            # print(f"{equation[0]} - {num_sum}")
             if num_sum == equation[0]:
-                print("----------------------------")
-                print(num_sum)
+
                 total_sum += num_sum
                 break
     print(total_sum)
